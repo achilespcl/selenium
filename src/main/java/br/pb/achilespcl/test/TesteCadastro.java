@@ -3,7 +3,6 @@ import static br.pb.achilespcl.core.DriverFactory.getDriver;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -22,7 +21,7 @@ public class TesteCadastro extends BaseTest {
 	@Before
 	public void init(){
 		getDriver().get("file:///"+ System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		System.out.println(System.getProperty("user.dir"));
+		dsl = new DSL();
 		ctp = new CampoTreinamentoPage();
 	}
 	
@@ -61,16 +60,18 @@ public class TesteCadastro extends BaseTest {
 		
 		Alert alert = getDriver().switchTo().alert();
 		Assert.assertEquals("Nome eh obrigatorio", alert.getText());
+		
+		alert.accept();
 	}
 	
 	@Test
 	public void deveValidarSobreNomeObrigatorio(){
-
 		dsl.write("elementosForm:nome", "William");
 		dsl.click("elementosForm:cadastrar");
 		
 		Alert alert = getDriver().switchTo().alert();
 		Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
+		alert.accept();
 	}
 	
 	@Test
@@ -81,6 +82,7 @@ public class TesteCadastro extends BaseTest {
 		
 		Alert alert = getDriver().switchTo().alert();
 		Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
+		alert.accept();
 	}
 	
 	@Test
@@ -95,6 +97,7 @@ public class TesteCadastro extends BaseTest {
 		
 		Alert alert = getDriver().switchTo().alert();
 		Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
+		alert.accept();
 		
 	}
 	
@@ -109,6 +112,7 @@ public class TesteCadastro extends BaseTest {
 		
 		Alert alert = getDriver().switchTo().alert();
 		Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
+		alert.accept();
 	}
 	
 }
